@@ -1,40 +1,12 @@
-<html>
-
+<!doctype html>
+<html lang="en">
   <head>
-    <title>barcode decoder - wow sock</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WOW SOCK - Barcode Utils</title>
   </head>
-
   <body>
-
-    <input type="file" onchange="selected_img(event)">
-
-    <div>
-        <img id="preview" />
-        <div id="decoded" style="color: red;"></div>
-    </div>
-
-    <script type="importmap">
-    {
-        "imports": {
-            "barcode-detector/pure": "https://fastly.jsdelivr.net/npm/barcode-detector@2/dist/es/pure.min.js"
-        }
-    }
-    </script>
-    
-    <script type="module">
-      import { BarcodeDetector } from "barcode-detector/pure"
-      
-      const detector = new BarcodeDetector({
-        formats: ["code_39"],
-      })
-
-      window.selected_img = async function(evt) {
-        const file = evt.target.files[0]
-        document.getElementById('preview').src = URL.createObjectURL(file)
-        
-        const [{ rawValue }] = await detector.detect(file)
-        document.getElementById('decoded').innerHTML = 'decoded: ' + rawValue
-      }
-    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
