@@ -9,6 +9,9 @@ function Nav({ active, set_active }) {
           <a href={active === key ? undefined : '#'} onClick={() => set_active(key)}>+ {key}</a>
         </li>
       )}
+      <li>
+        <a href='https://github.com/ppzreboot/barcode-decoder' target='_blank'>+ Source Code</a>
+      </li>
     </ul>
   </nav>
 }
