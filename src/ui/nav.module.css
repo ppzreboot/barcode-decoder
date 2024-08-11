@@ -5,7 +5,4 @@
 }
 .item {
   margin-right: .8em;
-  & + .item {
-    border-left: 1px solid #eee;
-  }
 }
