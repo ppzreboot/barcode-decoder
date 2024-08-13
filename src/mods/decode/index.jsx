@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import css from './index.module.css'
 import { Enc_type_selector } from '../enctype_selector'
 import { decode } from '../../ss/decode'
 
@@ -22,18 +21,19 @@ function Decode() {
         set_error(true)
       })
   }, [enctype, file])
-  return <main className={css.container}>
-    <label>
-      <span>Encode Type</span>
-      <Enc_type_selector value={enctype} set_value={set_enctype} />
-    </label>
-    <label>
-      <span>Barcode</span>
-      <input type='file' onChange={evt => set_file(evt.target.files[0])} />
-    </label>
+  return <main className='container'>
+    <section className='grid'>
+      <div>
+        <label>Encode Type</label>
+        <Enc_type_selector value={enctype} set_value={set_enctype} />
+        <label>Barcode</label>
+        <input type='file' onChange={evt => set_file(evt.target.files[0])} />
 
-    {content && <p>decoded: {content}</p>}
-    {!content && !error && <p>no content</p>}
-    {error && <p style={{ color: 'red' }}>unrecognized barcode</p>}
+        {content && <p>decoded: {content}</p>}
+        {!content && !error && <p>no content</p>}
+        {error && <p style={{ color: 'red' }}>unrecognized barcode</p>}
+      </div>
+      <div></div>
+    </section>
   </main>
 }

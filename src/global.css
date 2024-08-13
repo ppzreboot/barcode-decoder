@@ -1,13 +1,6 @@
-* {
-  box-sizing: content-box;
+html {
+  font-size: 16px;
 }
-html, body {
-  margin: 0;
-  padding: 0;
-}
-body {
-  max-width: 1000px;
-  padding: 0 1rem;
-  margin: 0 auto;
-  background-color: #fafafa;
+.container {
+  padding-block: var(--pico-block-spacing-vertical);
 }
