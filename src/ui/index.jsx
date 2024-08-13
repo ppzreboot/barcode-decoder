@@ -14,7 +14,6 @@ function App() {
       </hgroup>
       <Nav active={active} set_active={set_active} />
     </header>
-    <hr />
 
     {active === 'encode'
       ? <Encode />
