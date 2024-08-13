@@ -2,6 +2,8 @@ import Barcode from 'jsbarcode'
 
 export
 const enctype_list = [
+  ['itf', 'itf'],
+
   // 'aztec',
   ['code_128', 'code128'],
   ['code_39', 'code39'],
@@ -13,7 +15,6 @@ const enctype_list = [
   // 'dx_film_edge',
   ['ean_13', 'ean13'],
   ['ean_8', 'ean8'],
-  ['itf', 'itf'],
   // 'maxi_code',
   // 'micro_qr_code',
   // 'pdf417',
@@ -26,10 +27,15 @@ const enctype_list = [
 ]
 
 export
-function encode(format, content, svg) {
+function encode(canvas, content, format, opts) {
   try {
     console.log('encoding content: ', { format, content })
-    Barcode(svg, content, { format: enctype_list[format][1] })
+    Barcode(canvas, content, {
+      displayValue: false,
+
+      format: enctype_list[format][1],
+      ...opts,
+    })
   } catch(err) {
     console.error(err)
     return 'error on encode data'
