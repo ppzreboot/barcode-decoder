@@ -11,6 +11,7 @@
     "deploy": "vite build && gh-pages -d dist"
   },
   "dependencies": {
+    "@bwip-js/browser": "^4.5.1",
     "barcode-detector": "^2.2.7",
     "binary-bmp": "^1.2.0",
     "jsbarcode": "^3.11.6",

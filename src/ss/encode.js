@@ -1,4 +1,5 @@
 import Barcode from 'jsbarcode'
+import { code11, qrcode, microqrcode } from '@bwip-js/browser'
 
 export
 const enctype_list = [
@@ -24,18 +25,57 @@ const enctype_list = [
   // 'upc_a',
   // 'linear_codes',
   // 'matrix_codes',
+
+  ['code11', 'code11'],
+  ['QR Code', 'qrcode'],
+  ['Micro QR Code', 'mqrcode'],
 ]
 
 export
 function encode(canvas, content, format, opts) {
   try {
+    format = enctype_list[format][1]
     console.log('encoding content: ', { format, content })
-    Barcode(canvas, content, {
-      displayValue: false,
+    
+    switch(format) {
+      case 'code11':
+        code11(canvas, {
+          text: content,
+          scale: opts.width,
+          height: opts.height,
+          includetext: false,
+          backgroundcolor: opts.background,
+          barcolor: opts.lineColor,
+          padding: opts.margin,
+        })
+        break
+      case 'qrcode':
+        qrcode(canvas, {
+          text: content,
+          scale: 1,
+          backgroundcolor: opts.background,
+          barcolor: opts.lineColor,
+          padding: opts.margin,
+        })
+        break
+      case 'mqrcode':
+        microqrcode(canvas, {
+          text: content,
+          scale: 1,
+          backgroundcolor: opts.background,
+          barcolor: opts.lineColor,
+          padding: opts.margin,
+        })
+        break
+      default:
+        Barcode(canvas, content, {
+          displayValue: false,
 
-      format: enctype_list[format][1],
-      ...opts,
-    })
+          format,
+          ...opts,
+        })
+        break
+    }
   } catch(err) {
     console.error(err)
     return 'error on encode data'
