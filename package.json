@@ -1,7 +1,4 @@
 {
-  "name": "barcode-utils-v2",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,8 +7,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bulma": "^1.0.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "wouter": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",

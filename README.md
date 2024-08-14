@@ -1,1 +1,1 @@
-# barcode/qrcode utils
+# Bar Code & QR Code Utils
