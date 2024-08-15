@@ -2,6 +2,7 @@ import { Enctype, enctype_list } from '../../../../common/enctype'
 import { useState2_input } from '../../../../common/state'
 import { Enctype_select } from '../../../cmp/enctype'
 import { Field } from '../../../cmp/form/field'
+import { Output } from './output'
 
 export
 function Encode() {
@@ -92,7 +93,7 @@ function Encode() {
                   className='input'
                   type='color'
                   value={states.appearence.bar_color.value.val}
-                  onChange={evt => states.appearence.bar_color.value.set(Number(evt.target.value))}
+                  onChange={evt => states.appearence.bar_color.value.set(evt.target.value)}
                 />
               </div>
             </Field>
@@ -102,7 +103,7 @@ function Encode() {
                   className='input'
                   type='color'
                   value={states.appearence.bg_color.value.val}
-                  onChange={evt => states.appearence.bg_color.value.set(Number(evt.target.value))}
+                  onChange={evt => states.appearence.bg_color.value.set(evt.target.value)}
                 />
               </div>
             </Field>
@@ -110,5 +111,8 @@ function Encode() {
         </div>
       </div>
     </div>
+
+    <Output />
+
   </div>
 }
