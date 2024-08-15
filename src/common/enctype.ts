@@ -19,6 +19,11 @@ enum Enctype {
   EAN8,
   /** Europe Article Number (13 bits). */
   EAN13,
+
+  /** QR Code. */
+  qrcode,
+  /** Micro QR Code. */
+  micro_qrcode,
 }
 
 export
@@ -32,6 +37,8 @@ const enctype_list: readonly Enctype[] = [
   Enctype.EAN13,
   Enctype.UPC_A,
   Enctype.UPC_E,
+  Enctype.qrcode,
+  Enctype.micro_qrcode,
 ]
 
 export
@@ -45,4 +52,7 @@ const enctype_name_map: Record<Enctype, string> = {
   [Enctype.EAN13]: 'EAN 13',
   [Enctype.UPC_A]: 'UPC-A',
   [Enctype.UPC_E]: 'UPC-E',
+
+  [Enctype.qrcode]: 'QR Code',
+  [Enctype.micro_qrcode]: 'Micro QR Code',
 }

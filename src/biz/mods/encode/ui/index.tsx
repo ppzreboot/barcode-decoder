@@ -1,12 +1,12 @@
 import { Enctype, enctype_list } from '../../../../common/enctype'
-import { useState2_input } from '../../../../common/state'
+import { get_states_deps, useState2_input } from '../../../../common/state'
 import { Enctype_select } from '../../../cmp/enctype'
 import { Field } from '../../../cmp/form/field'
 import { Output } from './output'
 
 export
 function Encode() {
-  const className = 'column is-half-tablet is-one-third-desktop is-one-quarter-fullhd'
+  const resp_class = 'column is-half-tablet is-one-third-desktop is-one-quarter-fullhd'
 
   const states = {
     basic: {
@@ -21,13 +21,26 @@ function Encode() {
       bg_color: useState2_input<string>('#ffffff'),
     },
   }
+  const states_values = {
+    basic: {
+      enctype: states.basic.enctype.value.val,
+      content: states.basic.content.value.val,
+    },
+    appearence: {
+      scale: states.appearence.scale.value.val,
+      margin: states.appearence.margin.value.val,
+      height: states.appearence.height.value.val,
+      bar_color: states.appearence.bar_color.value.val,
+      bg_color: states.appearence.bg_color.value.val,
+    },
+  }
 
   return <div className='container'>
     <div className='block'>
       <h3 className='title is-5'>Basic</h3>
 
       <div className='columns is-multiline'>
-        <Field className={className} label='Encode Type'>
+        <Field className={resp_class} label='Encode Type'>
           <div className='control'>
             <Enctype_select state={states.basic.enctype.value} />
           </div>
@@ -54,7 +67,7 @@ function Encode() {
       <h3 className='title is-5'>Appearence</h3>
 
       <div className='columns is-multiline'>
-        <Field className={className} label='Scale'>
+        <Field className={resp_class} label='Scale'>
           <div className='control'>
             <input
               className='input'
@@ -64,7 +77,7 @@ function Encode() {
             />
           </div>
         </Field>
-        <Field className={className} label='Margin'>
+        <Field className={resp_class} label='Margin'>
           <div className='control'>
             <input
               className='input'
@@ -74,7 +87,7 @@ function Encode() {
             />
           </div>
         </Field>
-        <Field className={className} label='Height'>
+        <Field className={resp_class} label='Height'>
           <div className='control'>
             <input
               className='input'
@@ -85,7 +98,7 @@ function Encode() {
           </div>
         </Field>
 
-        <div className={className}>
+        <div className={resp_class}>
           <div className='columns is-mobile'>
             <Field className='column is-half-mobile' label='Bar Color'>
               <div className='control'>
@@ -112,7 +125,7 @@ function Encode() {
       </div>
     </div>
 
-    <Output />
+    <Output opts={states_values} deps={get_states_deps(states)} resp_class={resp_class} />
 
   </div>
 }
