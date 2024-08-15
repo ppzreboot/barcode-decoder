@@ -1,8 +1,12 @@
 import { Enctype, enctype_list, enctype_name_map } from '../../../common/enctype'
-import { Select, I_select_props } from '../form/select'
+import { Select } from '../form/select'
+
+interface Props {
+  state: State2<Enctype>
+}
 
 export
-function Enctype_select(props: I_select_props<Enctype>) {
+function Enctype_select(props: Props) {
   return <Select
     state={props.state}
     opts={enctype_list.map(value => 
