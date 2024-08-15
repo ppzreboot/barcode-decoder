@@ -5,7 +5,7 @@ interface Props<Val extends string | number> {
 
 export
 function Select<Val extends string | number>(props: Props<Val>) {
-  return <div className='select'>
+  return <div className='select is-fullwidth'>
     <select
       value={props.state.val}
       onChange={evt => props.state.set(evt.target.value)}
