@@ -13,7 +13,7 @@ function Header() {
           <Link className='navbar-item' href='/'>
             <h1
               className='title is-5'
-            >Bar Code & QR Code</h1>
+            >Barcode Utils</h1>
           </Link>
           <div
             role='button'

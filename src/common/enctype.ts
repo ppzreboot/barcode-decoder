@@ -22,9 +22,6 @@ enum Enctype {
 }
 
 export
-const enctype_num = 9
-
-export
 const enctype_list: readonly Enctype[] = [
   Enctype.ITF,
   Enctype.code11,

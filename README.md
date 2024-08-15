@@ -1,1 +1,1 @@
-# Bar Code & QR Code Utils
+# Barcode(1D/2D) Utils
