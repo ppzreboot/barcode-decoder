@@ -1,8 +1,10 @@
 import { ReactNode } from 'react'
+import { not_nil } from '../../../common'
 
 interface Props {
   className?: string
   label?: string
+  error?: string | null
   children: ReactNode
 }
 
@@ -13,5 +15,8 @@ function Field(props: Props) {
       <label className='label'>{props.label}</label>
     }
     {props.children}
+    {not_nil(props.error) &&
+      <p className='help is-danger'>{props.error}</p>
+    }
   </div>
 }

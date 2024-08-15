@@ -1,5 +1,5 @@
 import { Enctype, enctype_list } from '../../../../common/enctype'
-import { useState2 } from '../../../../common/state'
+import { useState2_input } from '../../../../common/state'
 import { Enctype_select } from '../../../cmp/enctype'
 import { Field } from '../../../cmp/form/field'
 
@@ -9,15 +9,15 @@ function Encode() {
 
   const states = {
     basic: {
-      enctype: useState2<Enctype>(enctype_list[0]),
-      content: useState2<string>(''),
+      enctype: useState2_input<Enctype>(enctype_list[0]),
+      content: useState2_input<string>(''),
     },
     appearence: {
-      scale: useState2<number>(1),
-      margin: useState2<number>(0),
-      height: useState2<number>(30),
-      bar_color: useState2<string>('#000000'),
-      bg_color: useState2<string>('#ffffff'),
+      scale: useState2_input<number>(1),
+      margin: useState2_input<number>(0),
+      height: useState2_input<number>(30),
+      bar_color: useState2_input<string>('#000000'),
+      bg_color: useState2_input<string>('#ffffff'),
     },
   }
 
@@ -28,14 +28,22 @@ function Encode() {
       <div className='columns is-multiline'>
         <Field className={className} label='Encode Type'>
           <div className='control'>
-            <Enctype_select state={states.basic.enctype} />
+            <Enctype_select state={states.basic.enctype.value} />
           </div>
         </Field>
       </div>
       <div className='columns'>
-        <Field className='column is-two-thirds-desktop is-half-fullhd' label='Content'>
+        <Field
+          className='column is-two-thirds-desktop is-half-fullhd'
+          label='Content'
+          error={states.basic.content.error.val}
+        >
           <div className='control'>
-            <textarea className='textarea' />
+            <textarea
+              className='textarea'
+              value={states.basic.content.value.val}
+              onChange={evt => states.basic.content.value.set(evt.target.value)}
+            />
           </div>
         </Field>
       </div>
@@ -50,8 +58,8 @@ function Encode() {
             <input
               className='input'
               type='number'
-              value={states.appearence.scale.val}
-              onChange={evt => states.appearence.scale.set(Number(evt.target.value))}
+              value={states.appearence.scale.value.val}
+              onChange={evt => states.appearence.scale.value.set(Number(evt.target.value))}
             />
           </div>
         </Field>
@@ -60,8 +68,8 @@ function Encode() {
             <input
               className='input'
               type='number'
-              value={states.appearence.margin.val}
-              onChange={evt => states.appearence.margin.set(Number(evt.target.value))}
+              value={states.appearence.margin.value.val}
+              onChange={evt => states.appearence.margin.value.set(Number(evt.target.value))}
             />
           </div>
         </Field>
@@ -70,8 +78,8 @@ function Encode() {
             <input
               className='input'
               type='number'
-              value={states.appearence.height.val}
-              onChange={evt => states.appearence.height.set(Number(evt.target.value))}
+              value={states.appearence.height.value.val}
+              onChange={evt => states.appearence.height.value.set(Number(evt.target.value))}
             />
           </div>
         </Field>
@@ -83,8 +91,8 @@ function Encode() {
                 <input
                   className='input'
                   type='color'
-                  value={states.appearence.bar_color.val}
-                  onChange={evt => states.appearence.bar_color.set(Number(evt.target.value))}
+                  value={states.appearence.bar_color.value.val}
+                  onChange={evt => states.appearence.bar_color.value.set(Number(evt.target.value))}
                 />
               </div>
             </Field>
@@ -93,8 +101,8 @@ function Encode() {
                 <input
                   className='input'
                   type='color'
-                  value={states.appearence.bg_color.val}
-                  onChange={evt => states.appearence.bg_color.set(Number(evt.target.value))}
+                  value={states.appearence.bg_color.value.val}
+                  onChange={evt => states.appearence.bg_color.value.set(Number(evt.target.value))}
                 />
               </div>
             </Field>

@@ -1,2 +1,2 @@
 export
-const app_base_path = '/barcode-qrcode-utils'
+const app_base_path = '/barcode-utils'
