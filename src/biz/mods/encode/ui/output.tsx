@@ -1,4 +1,4 @@
-import { useRef, useMemo, DependencyList, useEffect } from 'react'
+import { useRef, DependencyList, useEffect } from 'react'
 import {
   interleaved2of5, // itf
   code11,
@@ -75,51 +75,51 @@ interface Props {
 
 export
 function Output(props: Props) {
-  const canvas_container_ref = useRef<HTMLDivElement>(null)
+  const canvas_ref = useRef<HTMLCanvasElement>(null)
   const states = {
     width: useState2<number | null>(null),
     error: useState2<string | null>(null),
   }
 
-  const canvas = useMemo(() => {
-    return document.createElement('canvas')
-  }, [])
   useEffect(() => {
     if (props.opts.basic.content) {
-      encode_str(canvas, props.opts)
-      canvas.remove()
-      canvas_container_ref.current?.appendChild(canvas)
-      states.width.set(canvas.width)
+      try {
+        const canvas = canvas_ref.current!
+        encode_str(canvas, props.opts)
+        states.width.set(canvas.width)
+      } catch(err) {
+        // @ts-ignore
+        states.error.set(err.message)
+      }
     } else {
       states.width.set(null)
       states.error.set(null)
     }
   }, props.deps)
 
+  const display_on = (val: unknown) => ({
+    display: val ? undefined : 'none'
+  })
 
   return <div className='block'>
     <h3 className='title is-5'>Output</h3>
 
-    {states.error.val
-      ? <article className='message is-danger'>
-          <div className='message-body'>{states.error.val}</div>
-        </article>
-      : states.width.val
-        ? <div className='block'>
-            <div ref={canvas_container_ref}></div>
-            {states.width.val &&
-              <p className='block'>width: {states.width.val}px</p>
-            }
+    <article className='message is-danger' style={display_on(states.error.val)}>
+      <div className='message-body'>{states.error.val}</div>
+    </article>
 
-            <div className='columns' style={{ maxWidth: 688 }}>
-              {['jpg', 'png', 'bmp'].map(suffix =>
-                <div className='column' key={suffix}>
-                  <button className='button is-fullwidth'>Download .{suffix}</button>
-                </div>
-              )}
-            </div>
+    <div className='block' style={display_on(states.width.val)}>
+      <canvas ref={canvas_ref} />
+      <p className='block'>width: {states.width.val}px</p>
+      <div className='columns' style={{ maxWidth: 688 }}>
+        {['jpg', 'png', 'bmp'].map(suffix =>
+          <div className='column' key={suffix}>
+            <button className='button is-fullwidth'>Download .{suffix}</button>
           </div>
-        : <div className='block'>no content</div>
-    }
+        )}
+      </div>
+    </div>
+
+    <div className='block' style={display_on(!states.width.val)}>no content</div>
   </div>
 }
