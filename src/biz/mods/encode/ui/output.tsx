@@ -47,16 +47,6 @@ function encode_str(canvas: HTMLCanvasElement, props: Opts) {
     [Enctype.micro_qrcode]: microqrcode,
   }[props.basic.enctype]
 
-  console.log({
-    text: props.basic.content,
-
-    scale: props.appearence.scale,
-    height: props.appearence.height,
-    barcolor: props.appearence.bar_color,
-    backgroundcolor: props.appearence.bg_color,
-    padding: props.appearence.margin,
-  })
-
   const bwip_opts: RenderOptions = {
     text: props.basic.content,
 
@@ -91,8 +81,10 @@ function Output(props: Props) {
       try {
         const canvas = canvas_ref.current!
         encode_str(canvas, props.opts)
+        states.error.set(null)
         states.width.set(canvas.width)
       } catch(err) {
+        states.width.set(null)
         // @ts-ignore
         states.error.set(err.message)
       }
@@ -125,6 +117,6 @@ function Output(props: Props) {
       </div>
     </div>
 
-    <div className='block' style={display_on(!states.width.val)}>no content</div>
+    <div className='block' style={display_on(!states.error.val && !states.width.val)}>no content</div>
   </div>
 }
