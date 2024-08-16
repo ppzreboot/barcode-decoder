@@ -12,9 +12,11 @@ import {
 
   qrcode,
   microqrcode,
+
+  RenderOptions,
 } from '@bwip-js/browser'
 import { useState2 } from '../../../../common/state'
-import { Enctype } from '../../../../common/enctype'
+import { Enctype, is_2d_barcode } from '../../../../common/enctype'
 
 interface Opts {
   basic: {
@@ -55,16 +57,19 @@ function encode_str(canvas: HTMLCanvasElement, props: Opts) {
     padding: props.appearence.margin,
   })
 
-  // @ts-ignore
-  encode(canvas, {
+  const bwip_opts: RenderOptions = {
     text: props.basic.content,
 
     scale: props.appearence.scale,
-    height: props.appearence.height,
     barcolor: props.appearence.bar_color,
     backgroundcolor: props.appearence.bg_color,
+    // @ts-ignore
     padding: props.appearence.margin,
-  })
+  }
+  if (!is_2d_barcode(props.basic.enctype))
+    bwip_opts.height = props.appearence.height
+
+  encode(canvas, bwip_opts)
 }
 
 interface Props {

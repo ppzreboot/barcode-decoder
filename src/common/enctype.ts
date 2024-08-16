@@ -21,10 +21,13 @@ enum Enctype {
   EAN13,
 
   /** QR Code. */
-  qrcode,
+  qrcode = 101,
   /** Micro QR Code. */
   micro_qrcode,
 }
+
+export
+const is_2d_barcode = (type: Enctype) => type > 100
 
 export
 const enctype_list: readonly Enctype[] = [
