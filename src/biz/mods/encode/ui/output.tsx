@@ -22,6 +22,7 @@ interface Opts {
   basic: {
     enctype: Enctype
     content: string
+    with_text: boolean
   }
   appearence: {
     scale: number
@@ -49,6 +50,7 @@ function encode_str(canvas: HTMLCanvasElement, props: Opts) {
 
   const bwip_opts: RenderOptions = {
     text: props.basic.content,
+    includetext: props.basic.with_text,
 
     scale: props.appearence.scale,
     barcolor: props.appearence.bar_color,

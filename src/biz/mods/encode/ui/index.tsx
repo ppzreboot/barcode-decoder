@@ -1,4 +1,4 @@
-import { Enctype, enctype_list, is_2d_barcode } from '../../../../common/enctype'
+import { enctype_list, is_2d_barcode } from '../../../../common/enctype'
 import { get_states_deps, useState2_input } from '../../../../common/state'
 import { Enctype_select } from '../../../cmp/enctype'
 import { Field } from '../../../cmp/form/field'
@@ -10,21 +10,23 @@ function Encode() {
 
   const states = {
     basic: {
-      enctype: useState2_input<Enctype>(enctype_list[0]),
-      content: useState2_input<string>(''),
+      enctype: useState2_input(enctype_list[0]),
+      content: useState2_input(''),
+      with_text: useState2_input(true),
     },
     appearence: {
-      scale: useState2_input<number>(1),
-      margin: useState2_input<number>(0),
-      height: useState2_input<number>(20),
-      bar_color: useState2_input<string>('#000000'),
-      bg_color: useState2_input<string>('#ffffff'),
+      scale: useState2_input(1),
+      margin: useState2_input(0),
+      height: useState2_input(20),
+      bar_color: useState2_input('#000000'),
+      bg_color: useState2_input('#ffffff'),
     },
   }
   const states_values = {
     basic: {
       enctype: states.basic.enctype.value.val,
       content: states.basic.content.value.val,
+      with_text: states.basic.with_text.value.val,
     },
     appearence: {
       scale: states.appearence.scale.value.val,
@@ -47,19 +49,31 @@ function Encode() {
         </Field>
       </div>
       <div className='columns'>
-        <Field
-          className='column is-two-thirds-desktop is-half-fullhd'
-          label='Content'
-          error={states.basic.content.error.val}
-        >
-          <div className='control'>
-            <textarea
-              className='textarea'
-              value={states.basic.content.value.val}
-              onChange={evt => states.basic.content.value.set(evt.target.value)}
-            />
-          </div>
-        </Field>
+        <div className='column is-two-thirds-desktop is-half-fullhd'>
+          <Field
+            label='Content'
+            error={states.basic.content.error.val}
+          >
+            <div className='control'>
+              <textarea
+                className='textarea'
+                value={states.basic.content.value.val}
+                onChange={evt => states.basic.content.value.set(evt.target.value)}
+              />
+            </div>
+          </Field>
+          <Field error={states.basic.with_text.error.val}>
+            <div className='control'>
+              <label className='checkbox'>
+                <input type='checkbox'
+                  checked={states.basic.with_text.value.val}
+                  onChange={evt => states.basic.with_text.value.set(evt.target.checked)}
+                />
+                &nbsp;with text
+              </label>
+            </div>
+          </Field>
+        </div>
       </div>
     </div>
 
