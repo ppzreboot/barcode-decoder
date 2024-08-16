@@ -50,7 +50,6 @@ function encode_str(canvas: HTMLCanvasElement, props: Opts) {
 
   const bwip_opts: RenderOptions = {
     text: props.basic.content,
-    includetext: props.basic.with_text,
 
     scale: props.appearence.scale,
     barcolor: props.appearence.bar_color,
@@ -60,6 +59,10 @@ function encode_str(canvas: HTMLCanvasElement, props: Opts) {
   }
   if (!is_2d_barcode(props.basic.enctype))
     bwip_opts.height = props.appearence.height
+  if (props.basic.with_text) {
+    bwip_opts.alttext = props.basic.content
+    bwip_opts.textsize = is_2d_barcode(props.basic.enctype) ? 6 : 16
+  }
 
   encode(canvas, bwip_opts)
 }
