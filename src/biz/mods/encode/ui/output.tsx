@@ -1,4 +1,5 @@
 import { useRef, DependencyList, useEffect } from 'react'
+import { Bitmap } from 'binary-bmp'
 import {
   interleaved2of5, // itf
   code11,
@@ -15,8 +16,9 @@ import {
 
   RenderOptions,
 } from '@bwip-js/browser'
+import { download_data_URL } from '../../../../common/download'
 import { useState2 } from '../../../../common/state'
-import { Enctype, is_2d_barcode } from '../../../../common/enctype'
+import { Enctype, enctype_name_map, is_2d_barcode } from '../../../../common/enctype'
 
 interface Opts {
   basic: {
@@ -116,7 +118,25 @@ function Output(props: Props) {
       <div className='columns' style={{ maxWidth: 688 }}>
         {['jpg', 'png', 'bmp'].map(suffix =>
           <div className='column' key={suffix}>
-            <button className='button is-fullwidth'>Download .{suffix}</button>
+            <button
+              className='button is-fullwidth'
+              onClick={() => {
+                const canvas = canvas_ref.current!
+                const name = `${props.opts.basic.content}-${enctype_name_map[props.opts.basic.enctype]}`
+                switch(suffix) {
+                  case 'jpg':
+                    download_data_URL(canvas.toDataURL('image/jpeg'), name)
+                    break
+                  case 'png':
+                    download_data_URL(canvas.toDataURL('image/png'), name)
+                    break
+                  case 'bmp':
+                    // @ts-ignore
+                    download_data_URL(URL.createObjectURL(Bitmap.fromCanvas(canvas).blob()), name)
+                    break
+                }
+              }}
+            >Download .{suffix}</button>
           </div>
         )}
       </div>

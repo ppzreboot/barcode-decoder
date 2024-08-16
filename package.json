@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@bwip-js/browser": "^4.5.1",
+    "binary-bmp": "^1.2.0",
     "bulma": "^1.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
