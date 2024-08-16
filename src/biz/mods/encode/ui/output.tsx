@@ -63,7 +63,9 @@ function encode_str(canvas: HTMLCanvasElement, props: Opts) {
     bwip_opts.height = props.appearence.height
   if (props.basic.with_text) {
     bwip_opts.alttext = props.basic.content
-    bwip_opts.textsize = is_2d_barcode(props.basic.enctype) ? 6 : 16
+    const font_size = is_2d_barcode(props.basic.enctype) ? 6 : 16
+    bwip_opts.textyoffset = font_size / 3
+    bwip_opts.textsize = font_size
   }
 
   encode(canvas, bwip_opts)
