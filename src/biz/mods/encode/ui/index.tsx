@@ -1,4 +1,4 @@
-import { Enctype, enctype_list } from '../../../../common/enctype'
+import { Enctype, enctype_list, is_2d_barcode } from '../../../../common/enctype'
 import { get_states_deps, useState2_input } from '../../../../common/state'
 import { Enctype_select } from '../../../cmp/enctype'
 import { Field } from '../../../cmp/form/field'
@@ -16,7 +16,7 @@ function Encode() {
     appearence: {
       scale: useState2_input<number>(1),
       margin: useState2_input<number>(0),
-      height: useState2_input<number>(30),
+      height: useState2_input<number>(20),
       bar_color: useState2_input<string>('#000000'),
       bg_color: useState2_input<string>('#ffffff'),
     },
@@ -87,16 +87,18 @@ function Encode() {
             />
           </div>
         </Field>
-        <Field className={resp_class} label='Height'>
-          <div className='control'>
-            <input
-              className='input'
-              type='number'
-              value={states.appearence.height.value.val}
-              onChange={evt => states.appearence.height.value.set(Number(evt.target.value))}
-            />
-          </div>
-        </Field>
+        {is_2d_barcode(states.basic.enctype.value.val) ||
+          <Field className={resp_class} label='Height'>
+            <div className='control'>
+              <input
+                className='input'
+                type='number'
+                value={states.appearence.height.value.val}
+                onChange={evt => states.appearence.height.value.set(Number(evt.target.value))}
+              />
+            </div>
+          </Field>
+        }
 
         <div className={resp_class}>
           <div className='columns is-mobile'>
